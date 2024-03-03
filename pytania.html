@@ -12,7 +12,7 @@
         }
         
         .copy-button {
-            background-color: #4CAF50; /* Zielony kolor */
+            background-color: #4CAF50;
             border: none;
             color: white;
             padding: 5px 10px;
@@ -26,11 +26,11 @@
         }
 
         .copy-button:hover {
-            background-color: #45a049; /* Ciemniejszy odcień zielonego koloru */
+            background-color: #45a049;
         }
 
         .copied {
-            background-color: #f44336 !important; /* Czerwony kolor */
+            background-color: #f44336 !important;
         }
     </style>
 </head>
@@ -99,7 +99,6 @@
         "Czy jedyną rzeczą którą można uzyskać przez hodowanie pand jest bambus?",
         "Czy po zabiciu wiedźmy można otrzymać m.in. jasnopył, puste butelki i oczy pająka?",
         "Czy /warp infoskup i /warp infosklep teleportuje nas w dokładnie to samo miejsce?",
-            // Dodaj kolejne pytania tutaj
         ];
 
         const questionsContainer = document.getElementById('questionsContainer');
@@ -122,7 +121,7 @@
             document.execCommand('copy');
             document.body.removeChild(el);
             button.classList.add('copied');
-            button.disabled = true; // Wyłącz przycisk po kliknięciu
+            button.disabled = true; 
         }
     </script>
 </body>
