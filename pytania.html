@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopiowanie pytań</title>
+    <style>
+        .question {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .copy-button {
+            background-color: #4CAF50; /* Zielony kolor */
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            margin-right: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            transition-duration: 0.4s;
+        }
+
+        .copy-button:hover {
+            background-color: #45a049; /* Ciemniejszy odcień zielonego koloru */
+        }
+
+        .copied {
+            background-color: #f44336 !important; /* Czerwony kolor */
+        }
+    </style>
+</head>
+<body>
+    <div id="questionsContainer"></div>
+
+    <script>
+        const questions = [
+        "Czy creeper potrafi wejść po drabinie?",
+        "Czy oczy endermana będą widoczne jeśli rzuci się w niego potką niewidzialności?",
+        "Czy posuch w wodzie zamienia się w utopca?",
+        "Czy oceloty atakują dorosłe żółwie?",
+        "Czy rudę złota da się wykopać złotym kilofem?",
+        "Czy villager może zasnąć w netherze?",
+        "Czy niuchacz jest w stanie przeżyć upadek z 17 kratek?",
+        "Czy jajo niuchacza może przetrwać zrzucenie na niego kowadła?",
+        "Czy zalane wodą sculkowe wrzeszczydło nie wydaje dzwięków?",
+        "Czy używając plastra miodu na tabliczce zablokujemy możliwość jej edytowania?",
+        "Czy można pisać tylko po jednej stronie tabliczki?",
+        "Czy blok bambusa nieszczy się szybciej mieczem?",
+        "Czy wielbłąd może przejść przez płotek?",
+        "Czy na wielbłąda można założyć zbroję na konia?",
+        "Czy ognisty kwiat emituje światło?",
+        "Czy kładąc na blok dźwiękowy głowę moba to wydaje on jego dźwięk?",
+        "Czy przez przyciemnione szklo nie widać deszczu?",
+        "Czy przepalając w piecu netherytową zbroję otrzymamy sztabkę netherytu?",
+        "Czy wszystkie owce na biomie wiśnoiwym są różowe?",
+        "Czy namorzynowe drzewo można zasadzić pod wodą?",
+        "Czy drop diamentów ze stona wynosi 1%?",
+        "Czy dla graczy są dostępne 2 efekty podczas chodzenia?",
+        "Czy targ jest usuwany po 14 dniach jeżeli przez ten czas nikt nic z niego nie kupi?",
+        "Czy warden ma 250 serc?",
+        "Czy pszczoła może mieć 2 kolory oczu?",
+        "Czy szablon kowalski 'iglica' jest dostępny do zdobycia tylko w mieście endu (end city)?",
+        "Czy szablon kowalski 'żebra' można zdobyć tylko w piramidzie?",
+        "Czy Pszczoła umiera po zaatakowaniu gracza?",
+        "Czy obecna edycja rozpoczęła się 6 lipca?",
+        "Czy łancuch można wydobyć jakimkolwiek kilofem?",
+        "Czy do stworzenia magnetytu potrzebna jest sztabka netherytu?",
+        "Czy lód i śnieg topnieją, gdy poziom światła wynosi 11?",
+        "Czy można zneleźć zakopany skarb niekorzystając z mapy skarbów?",
+        "Czy w minecraft mamy 5 faz księżyca?",
+        "Czy ghast ma 12 serc?",
+        "Czy creeper ma tyle samo hp co gracz?",
+        "Czy zabijając szkieleta naładowym creeperem, otrzymamy jego głowę?",
+        "Czy kamienna siekiera u npc na /warp las kosztuje 50$?",
+        "Czy wędka u npc na /warp lowisko kosztuje 100$?",
+        "Czy u npc na /warp kopalnia można kupić kamienny kilof?",
+        "Czy są działki o różnym poziomie, ale tej samej wielkości?",
+        "Czy jest 7 rodzajów kozich rogów?",
+        "Czy istnieją 4 stopnie zniszczenia kowadła?(zwykłe, wyszczerbione, podniszczone i uszkodzone)?",
+        "Czy enchant porażenie jest na miecz?",
+        "Czy aksolotle w minecrafcie występują w 4 kolorach?",
+        "Czy aksolotle w minecrafcie mogą dać nam efekt regeneracji?",
+        "Czy ghasty w minecrafcie mogą dać nam efekt lewitacji?",
+        "Czy każdy osadnik ma 8 slotów w ekwipunku?",
+        "Czy na serwerze szansa na rozmnożenie osadnika wynosi 6,6%?",
+        "Czy odłamek nethertyu ze skrzynek może wypaść tylko z mitycznej skrzynki?",
+        "Czy drop miedzi z kamienia jest większy od dropu żelaza?",
+        "Czy złotą marchewkę robi się z marchewki i 8 sztabek złota?",
+        "Czy w minecrafcie jest dostępne 17 szablonów kowalskich?",
+        "Czy biblioteczki można robić z każdego rodzaju desek z wyjątkiem bambusowych?",
+        "Czy wiedzma może rzucać w nas tylko 3 rodzajami potek?(trucizna natychmiastowe obrażenia i spowolnienie)?",
+        "Czy pandy w minecraft mogą siedzieć i leżeć na plecach?",
+        "Czy pandy mają jakiś drop po ich zabiciu?",
+        "Czy jedyną rzeczą którą można uzyskać przez hodowanie pand jest bambus?",
+        "Czy po zabiciu wiedźmy można otrzymać m.in. jasnopył, puste butelki i oczy pająka?",
+        "Czy /warp infoskup i /warp infosklep teleportuje nas w dokładnie to samo miejsce?",
+            // Dodaj kolejne pytania tutaj
+        ];
+
+        const questionsContainer = document.getElementById('questionsContainer');
+
+        questions.forEach((question, index) => {
+            const div = document.createElement('div');
+            div.classList.add('question');
+            div.innerHTML = `
+                <button class="copy-button" onclick="copyText('${question}', this)">Kopiuj</button>
+                <p>${question}</p>
+            `;
+            questionsContainer.appendChild(div);
+        });
+
+        function copyText(text, button) {
+            const el = document.createElement('textarea');
+            el.value = text;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            button.classList.add('copied');
+            button.disabled = true; // Wyłącz przycisk po kliknięciu
+        }
+    </script>
+</body>
+</html>
